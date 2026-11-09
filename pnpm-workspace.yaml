@@ -1,0 +1,14 @@
+# Прерываем установку, если текущая версия Node.js не подходит под engines.node проекта (package.json)
+# или любой из зависимостей. engines.node проекта pnpm 12.6+ проверяет только с этой настройкой
+# (https://github.com/pnpm/pnpm/issues/3016).
+engineStrict: true
+# Что разрешено делать отдельным зависимостям при установке (pnpm 12.11+).
+permissions:
+  '@tanstack/router-plugin':
+    # Разрешаем pnpm связать скиллы агентов из пакета с каталогами скиллов проекта (.agents/skills и .claude/skills).
+    skills: true
+# Каталоги, в которые pnpm связывает скиллы, разрешённые зависимостям.
+skills:
+  dirs:
+    - .agents/skills
+    - .claude/skills

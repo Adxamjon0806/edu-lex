@@ -1,0 +1,21 @@
+{
+  // Предлагаем расширения, которые применяют настройки проекта в редакторе и помогают работать с его файлами.
+  "recommendations": [
+    // Подсказывает классы Tailwind CSS.
+    "bradlc.vscode-tailwindcss",
+    // Показывает ошибки по eslint.config.js.
+    "dbaeumer.vscode-eslint",
+    // Подсвечивает синтаксис .env-файлов и скрывает их значения на экране.
+    "dotenv.dotenv-vscode",
+    // Применяет .editorconfig.
+    "editorconfig.editorconfig",
+    // Форматирует по prettier.config.js.
+    "esbenp.prettier-vscode",
+    // Подсказывает, проверяет (в том числе по схемам XSD и DTD) и форматирует XML.
+    "redhat.vscode-xml",
+    // Подсказывает и проверяет YAML по JSON-схемам; форматирует YAML по-прежнему Prettier.
+    "redhat.vscode-yaml",
+    // Запускает и отлаживает тесты Vitest из редактора.
+    "vitest.explorer"
+  ]
+}

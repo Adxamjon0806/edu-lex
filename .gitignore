@@ -1,0 +1,57 @@
+# Локальные файлы и логи
+*.local
+*.log
+
+# Файлы проектов и локальное состояние редакторов
+*.njsproj
+*.ntvs*
+*.sln
+*.suo
+*.sw?
+
+# Служебный файл macOS
+.DS_Store
+
+# Переменные окружения могут содержать секреты; в репозиторий попадает только пример без значений
+.env*
+!.env.example
+
+# Локальные настройки IDE JetBrains
+.idea
+
+# Хранилище пакетов pnpm в GitLab CI (кэшируется между заданиями, см. .gitlab-ci.yml)
+.pnpm-store
+
+# Временные файлы генератора маршрутов TanStack Router (tsr generate)
+.tanstack
+
+# Служебные артефакты Vitest
+.vitest
+
+# Локальные настройки VS Code; общие настройки храним в репозитории
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Отчёты покрытия Vitest
+coverage
+
+# Результаты сборки
+dist
+dist-ssr
+
+# Логи пакетных менеджеров
+lerna-debug.log*
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Логи
+logs
+
+# Зависимости
+node_modules
+
+# Дизайн
+design

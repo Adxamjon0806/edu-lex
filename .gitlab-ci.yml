@@ -1,0 +1,107 @@
+# Конвейер GitLab CI (https://docs.gitlab.com/ci/yaml/). Ключи упорядочены по алфавиту (yml/sort-keys
+# в eslint.config.js): порядок выполнения задают stage и needs, а не расположение заданий в файле.
+# Этапы build и test — стандартные этапы GitLab, поэтому stages не объявлен.
+
+# Сборка: pnpm build проверяет типы и собирает приложение. VITE_API_URL задаётся в CI/CD-переменных проекта
+# (Settings → CI/CD → Variables) с областью окружения «All» (*): у задания нет environment, и переменные
+# с другой областью ему недоступны. Без переменной vite.config.ts останавливает сборку.
+build:
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist
+  script:
+    - pnpm build
+  stage: build
+
+# Сообщения коммитов merge request (https://commitlint.js.org/guides/ci-setup.html): хук commit-msg
+# обходится через git commit --no-verify, поэтому проверяем их и здесь.
+commitlint:
+  # commitlint читает коммиты через git, а в образе pnpm его нет; образ Node.js с git — как в документации
+  # commitlint. pnpm ставим из npm; версию из packageManager в package.json он выберет сам.
+  before_script:
+    - apk add --no-cache git
+    - npm install --global pnpm@12
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install
+  image: node:24-alpine
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - pnpm commitlint --from "$CI_MERGE_REQUEST_DIFF_BASE_SHA" --to "$CI_COMMIT_SHA"
+  stage: test
+  variables:
+    # По умолчанию GitLab клонирует только 20 последних коммитов; для больших merge request нужна вся история.
+    GIT_DEPTH: 0
+
+default:
+  # Официальный образ pnpm (https://pnpm.io/continuous-integration): Node.js в нём нет, ставим его через pnpm
+  # (версия как в .nvmrc). Версию pnpm из packageManager в package.json pnpm выбирает сам.
+  before_script:
+    - pnpm config set store-dir .pnpm-store
+    - pnpm runtime set node 24 -g
+    - pnpm install
+  # Кэшируем хранилище пакетов pnpm, пока не изменится lockfile.
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+  image: ghcr.io/pnpm/pnpm:12
+  # Новый коммит в ту же ветку отменяет устаревший конвейер (при включённой в проекте настройке
+  # Settings → CI/CD → General pipelines → Auto-cancel redundant pipelines).
+  interruptible: true
+
+# Линтинг, форматирование и архитектура FSD; проверку типов выполняет build.
+lint:
+  needs: []
+  script:
+    - pnpm lint
+    - pnpm format:check
+    - pnpm arch:check
+  stage: test
+
+# Unit- и browser-тесты с покрытием. Отчёт JUnit показывает упавшие тесты в merge request,
+# отчёт Cobertura — покрытие строк в diff (https://docs.gitlab.com/ci/testing/code_coverage/).
+test:
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+      # Путь отчёта JUnit по умолчанию в Vitest.
+      junit: .vitest/junit/output.xml
+    # Отчёты нужны и тогда, когда тесты упали.
+    when: always
+  # Образ Playwright с Chromium и системными зависимостями (https://playwright.dev/docs/ci#gitlab-ci); Node.js 24
+  # в нём есть, pnpm ставим из npm.
+  before_script:
+    - npm install --global pnpm@12
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install
+  # Процент покрытия из строки «All files» текстового отчёта, как для Jest/Istanbul в документации GitLab.
+  coverage: '/All files[^\x7c]*\x7c[^\x7c]*\s+([\d\.]+)/'
+  # Версия образа должна совпадать с версией playwright в pnpm-lock.yaml: в образе только браузеры этой версии.
+  image: mcr.microsoft.com/playwright:v1.64.1-noble
+  needs: []
+  script:
+    - pnpm test:coverage --reporter=default --reporter=junit --coverage.reporter=text --coverage.reporter=cobertura
+  stage: test
+  variables:
+    # Тесты не обращаются к настоящему API (запросы перехватывает MSW), но vite.config.ts требует переменную.
+    VITE_API_URL: ''
+
+variables:
+  # Не устанавливаем Git-хуки при pnpm install в CI (https://typicode.github.io/husky/how-to.html).
+  HUSKY: 0
+
+# Конвейер для merge request, а для ветки без открытого merge request — конвейер ветки; без дублей
+# (https://docs.gitlab.com/ci/yaml/workflow/#switch-between-branch-pipelines-and-merge-request-pipelines).
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH

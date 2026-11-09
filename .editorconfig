@@ -1,0 +1,29 @@
+# https://editorconfig.org/
+# Применяем настройки ко всему репозиторию, не наследуя правила из родительских каталогов.
+root = true
+
+[*]
+# Сохраняем текст в UTF-8 для одинакового отображения на разных системах.
+charset = utf-8
+# Используем LF, как в .gitattributes и Prettier, независимо от ОС.
+end_of_line = lf
+# Два пробела соответствуют отступам Prettier по умолчанию.
+indent_size = 2
+# Пробелы вместо табуляции соответствуют настройке Prettier по умолчанию.
+indent_style = space
+# Завершаем файлы переводом строки, чтобы избежать лишних изменений в diff.
+insert_final_newline = true
+# Держим рабочую ширину строк согласованной с printWidth в Prettier.
+max_line_length = 120
+# Удаляем пробелы в конце строк, чтобы они не попадали в diff.
+trim_trailing_whitespace = true
+
+[*.md]
+# Не ограничиваем длину строк Markdown, как и в переопределении Prettier.
+max_line_length = off
+# Два пробела в конце строки Markdown означают перенос строки, поэтому их не удаляем.
+trim_trailing_whitespace = false
+
+[COMMIT_EDITMSG]
+# Совпадает с лимитом 100 символов на строку в @commitlint/config-conventional (заголовок, тело и футер).
+max_line_length = 100

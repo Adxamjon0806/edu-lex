@@ -1,0 +1,189 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+/*
+ * Тёмная тема включается атрибутом data-theme="dark" на <html> (как переключатель в дизайне),
+ * а не системной настройкой. Семантические цвета переключаются сами, dark: нужен только для
+ * разовых отличий.
+ */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Значения взяты из design/EduLexScreens.dc.html. */
+@theme {
+  /* Шрифты: Manrope для текста, Spectral для заголовков и цифр. Подключаются в index.html. */
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Spectral', ui-serif, Georgia, serif;
+
+  /* Палитра Tailwind по умолчанию отключена: доступны только цвета дизайна. */
+  --color-*: initial;
+  --color-white: #ffffff;
+
+  /* Брендовые цвета не меняются от темы. */
+  --color-navy-950: #060c1c; /* фон видеоконсультации */
+  --color-navy-900: #0a1530; /* фон экрана подписки */
+  --color-navy: #0c1834; /* Academic Navy: база, навигация, основные кнопки */
+  --color-navy-800: #13234a; /* плашки и поля на navy */
+  --color-navy-700: #1b2d57; /* разделители на navy */
+  --color-navy-600: #1e3260; /* дорожки прогресса на navy */
+  --color-navy-500: #24386a; /* рамки на navy */
+  --color-navy-400: #3a4e7a; /* рамки кнопок на navy */
+  --color-navy-300: #6e7c99; /* плейсхолдер на navy */
+  --color-navy-200: #a9b4c8; /* второстепенный текст на navy */
+  --color-navy-100: #c3cbda;
+
+  --color-emerald-300: #7fd8b4; /* акцентные подписи на navy */
+  --color-emerald-400: #34d399; /* активный пункт навигации на navy */
+  --color-emerald-500: #34c48d; /* конец градиента прогресса, галочки */
+  --color-emerald: #0f9d6b; /* Emerald: действие, успех */
+  --color-emerald-700: #0b7a53;
+
+  --color-gold-300: #e3c77f;
+  --color-gold-400: #d8b45e; /* логотип-текст, иконки премиума на navy */
+  --color-gold: #c7a04b; /* Honey Gold: премиум, серии */
+  --color-gold-700: #8a6a1f;
+
+  --color-red-300: #e3a7a2; /* рамка опасной кнопки */
+  --color-red: #d9473f; /* завершение звонка */
+  --color-red-700: #b4443e;
+
+  /* Семантические цвета: светлые значения здесь, тёмные — в [data-theme='dark'] ниже. */
+  --color-background: #faf7f0; /* Milk: фон страницы */
+  --color-surface: #ffffff; /* карточки, панели */
+  --color-surface-muted: #efebe1; /* приглушённые плашки, чипы */
+  --color-selected: #f1faf6; /* фон выбранного варианта */
+  --color-track: #e7e2d6; /* дорожки прогресса, разделители-блоки */
+
+  --color-heading: #0c1834; /* заголовки и акцентный текст */
+  --color-body: #23272f; /* Graphite: основной текст */
+  --color-body-secondary: #4a4f58;
+  --color-muted: #6b7079; /* подписи, второстепенный текст */
+  --color-subtle: #6b6b6b;
+  --color-disabled: #b5b0a4; /* недоступные даты и слоты */
+
+  --color-line: #e7e2d6; /* обычные рамки */
+  --color-line-strong: #d9d3c5; /* рамки полей, радио */
+  --color-line-accent: #0c1834; /* выделенная рамка */
+
+  --color-success: #0b7a53; /* текст успеха, ссылки */
+  --color-success-subtle: #ddf3ea; /* Mint: верификация, прогресс */
+  --color-premium: #8a6a1f; /* золотой текст на светлом */
+  --color-premium-subtle: #f5ecd3;
+  --color-danger: #b4443e; /* текст ошибки */
+  --color-danger-subtle: #fbe6e4; /* Soft Red: фон ошибки */
+
+  /* Размеры текста по пикселям дизайна: text-13 = 13px. Шкала Tailwind отключена. */
+  --text-*: initial;
+  --text-10: 0.625rem;
+  --text-11: 0.6875rem;
+  --text-12: 0.75rem;
+  --text-13: 0.8125rem;
+  --text-14: 0.875rem;
+  --text-15: 0.9375rem;
+  --text-16: 1rem;
+  --text-17: 1.0625rem;
+  --text-18: 1.125rem;
+  --text-19: 1.1875rem;
+  --text-20: 1.25rem;
+  --text-21: 1.3125rem;
+  --text-22: 1.375rem;
+  --text-23: 1.4375rem;
+  --text-24: 1.5rem;
+  --text-26: 1.625rem;
+  --text-28: 1.75rem;
+  --text-30: 1.875rem;
+  --text-32: 2rem;
+  --text-34: 2.125rem;
+  --text-38: 2.375rem;
+  --text-40: 2.5rem;
+  --text-44: 2.75rem;
+  --text-48: 3rem;
+  --text-52: 3.25rem;
+  --text-56: 3.5rem;
+
+  /* Межстрочные интервалы дизайна (без leading — normal, как в макете). */
+  --leading-*: initial;
+  --leading-none: 1;
+  --leading-tight: 1.12; /* крупные заголовки Spectral: в макете 1.08–1.15 */
+  --leading-snug: 1.4;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+  --leading-loose: 1.75;
+
+  /* Разрядка заглавных подписей. */
+  --tracking-wide: 0.04em;
+  --tracking-wider: 0.06em;
+  --tracking-widest: 0.08em;
+
+  /* Радиусы по пикселям дизайна: rounded-12 = 12px. rounded-full работает как обычно. */
+  --radius-*: initial;
+  --radius-3: 0.1875rem;
+  --radius-4: 0.25rem;
+  --radius-5: 0.3125rem;
+  --radius-6: 0.375rem;
+  --radius-8: 0.5rem;
+  --radius-9: 0.5625rem;
+  --radius-10: 0.625rem;
+  --radius-12: 0.75rem;
+  --radius-14: 0.875rem;
+  --radius-16: 1rem;
+  --radius-18: 1.125rem;
+  --radius-20: 1.25rem;
+  --radius-22: 1.375rem;
+  --radius-24: 1.5rem;
+  --radius-28: 1.75rem;
+  --radius-32: 2rem;
+
+  /* Тени дизайна. */
+  --shadow-*: initial;
+  --shadow-xs: 0 2px 8px rgb(12 24 52 / 0.1); /* выбранный сегмент переключателя */
+  --shadow-sm: 0 4px 18px rgb(12 24 52 / 0.05);
+  --shadow-md: 0 6px 24px rgb(12 24 52 / 0.05);
+  --shadow-lg: 0 14px 40px rgb(12 24 52 / 0.1);
+  --shadow-xl: 0 18px 50px rgb(12 24 52 / 0.1);
+  --shadow-raised: 0 8px 24px rgb(12 24 52 / 0.1); /* выбранная карточка трека */
+  --shadow-sheet: 0 -10px 30px rgb(12 24 52 / 0.12); /* нижняя панель на мобильном */
+  --shadow-glow: 0 0 14px rgb(16 185 129 / 0.5); /* свечение прогресса */
+  --shadow-glow-lg: 0 0 30px rgb(16 185 129 / 0.35);
+
+  /* Свечение иконки активного пункта навигации (в макете — text-shadow иконочного шрифта). */
+  --drop-shadow-glow: 0 0 14px rgb(52 211 153 / 0.8);
+}
+
+@layer base {
+  [data-theme='dark'] {
+    color-scheme: dark;
+
+    --color-background: #081026; /* Dark Surface */
+    --color-surface: #12224a;
+    --color-surface-muted: #1a2d58;
+    --color-selected: #0f2e3a;
+    --color-track: #1a2d58;
+
+    --color-heading: #f3f0e8;
+    --color-body: #e8eaf0;
+    --color-body-secondary: #c3cbda;
+    --color-muted: #a9b4c8;
+    --color-subtle: #9aa0aa;
+
+    --color-line: #22365f;
+    --color-line-strong: #34497a;
+    --color-line-accent: #5fd3a6;
+
+    --color-success: #5fd3a6;
+    --color-success-subtle: #0f3a36;
+    --color-premium: #e3c77f;
+    --color-premium-subtle: #3a3220;
+    --color-danger: #f09a94;
+    --color-danger-subtle: #3a1f2a;
+  }
+
+  html {
+    /* В макете текст задан шорткатом font без высоты строки, то есть line-height: normal. */
+    line-height: normal;
+  }
+
+  body {
+    @apply bg-background font-sans text-body antialiased;
+  }
+}

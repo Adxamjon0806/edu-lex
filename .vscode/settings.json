@@ -1,0 +1,34 @@
+{
+  // Prettier не форматирует XML, поэтому XML форматирует расширение Red Hat.
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml"
+  },
+  // Форматируем файлы через Prettier по prettier.config.js.
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // Форматируем вставленный фрагмент сразу после вставки.
+  "editor.formatOnPaste": true,
+  // Применяем форматирование при каждом сохранении файла.
+  "editor.formatOnSave": true,
+  // Показываем ошибки ESLint во всех языках проекта: по умолчанию расширение не проверяет YAML.
+  "eslint.validate": ["javascript", "json", "jsonc", "typescript", "typescriptreact", "yaml"],
+  // Привязываем хуки Husky без расширений к языку Shell Script для корректной подсветки синтаксиса.
+  "files.associations": {
+    "commit-msg": "shellscript",
+    "pre-commit": "shellscript"
+  },
+  // Дерево маршрутов генерирует TanStack Router, поэтому запрещаем его ручное редактирование.
+  "files.readonlyInclude": {
+    "**/generatedRouteTree.ts": true
+  },
+  // Не отслеживаем изменения файла, который перегенерируется при каждом изменении маршрутов.
+  "files.watcherExclude": {
+    "**/generatedRouteTree.ts": true
+  },
+  // Исключаем сгенерированный файл из результатов поиска.
+  "search.exclude": {
+    "**/generatedRouteTree.ts": true
+  },
+  // Подсказываем классы Tailwind внутри classNames(), как tailwindFunctions в prettier.config.js сортирует их там.
+  "tailwindCSS.classFunctions": ["classNames"],
+  "python.terminal.useEnvFile": true
+}
