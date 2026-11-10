@@ -28,7 +28,8 @@ export function NavigationLink({
 }: NavigationLinkProps) {
   return (
     <Link
-      activeOptions={{ exact: true, includeHash: true }}
+      // Главная активна только сама по себе, остальные пункты — и на вложенных страницах (профиль → подписка).
+      activeOptions={{ exact: to === '/', includeHash: true }}
       className={classNames(
         'flex min-w-15 flex-col items-center gap-1 py-1.5 text-10 font-semibold text-navy-200 transition-colors',
         'hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald',

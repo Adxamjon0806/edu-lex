@@ -15,10 +15,11 @@ const trackClasses = {
   navy: 'bg-navy-600',
 } as const
 
-// Заливка: сплошная emerald или градиент emerald → emerald-500, как у прогресса курса.
+// Заливка: сплошная emerald, градиент emerald → emerald-500 (прогресс курса) или navy → emerald (индекс готовности).
 const fillClasses = {
   emerald: 'bg-emerald',
   gradient: 'bg-linear-to-r from-emerald to-emerald-500',
+  'navy-gradient': 'bg-linear-to-r from-navy to-emerald',
 } as const
 
 export type ProgressBarSize = keyof typeof sizeClasses

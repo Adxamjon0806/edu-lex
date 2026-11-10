@@ -13,7 +13,9 @@ const variantClasses = {
   'danger-outline': 'border-line bg-surface text-danger hover:bg-danger-subtle',
   'on-navy': 'bg-white/10 text-white backdrop-blur-sm hover:bg-white/20',
   outline: 'border-line bg-surface text-body hover:bg-surface-muted',
-  primary: 'bg-emerald text-white hover:bg-emerald-700',
+  // Недоступная — серая (inactive) без прозрачности, как основная Button.
+  primary:
+    'bg-emerald text-white hover:bg-emerald-700 disabled:bg-inactive disabled:opacity-100 aria-disabled:bg-inactive aria-disabled:opacity-100',
 } as const
 
 // Размеры в пикселях макета: 36–60. Иконка растёт вместе с кнопкой, как font-size иконок в дизайне.

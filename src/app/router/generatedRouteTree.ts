@@ -15,6 +15,8 @@ import { Route as AuthenticatedIndexRouteImport } from './../routes/_authenticat
 import { Route as AuthenticatedLearningRouteImport } from './../routes/_authenticated/learning'
 import { Route as AuthenticatedPracticeRouteImport } from './../routes/_authenticated/practice'
 import { Route as UnauthenticatedSignInRouteImport } from './../routes/_unauthenticated/sign-in'
+import { Route as AuthenticatedProfileIndexRouteImport } from './../routes/_authenticated/profile/index'
+import { Route as AuthenticatedProfileSubscriptionRouteImport } from './../routes/_authenticated/profile/subscription'
 
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
@@ -44,18 +46,34 @@ const UnauthenticatedSignInRoute = UnauthenticatedSignInRouteImport.update({
   path: '/sign-in',
   getParentRoute: () => UnauthenticatedRoute,
 } as any)
+const AuthenticatedProfileIndexRoute =
+  AuthenticatedProfileIndexRouteImport.update({
+    id: '/profile/',
+    path: '/profile/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedProfileSubscriptionRoute =
+  AuthenticatedProfileSubscriptionRouteImport.update({
+    id: '/profile/subscription',
+    path: '/profile/subscription',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/learning': typeof AuthenticatedLearningRoute
   '/practice': typeof AuthenticatedPracticeRoute
   '/sign-in': typeof UnauthenticatedSignInRoute
+  '/profile/subscription': typeof AuthenticatedProfileSubscriptionRoute
+  '/profile/': typeof AuthenticatedProfileIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/learning': typeof AuthenticatedLearningRoute
   '/practice': typeof AuthenticatedPracticeRoute
   '/sign-in': typeof UnauthenticatedSignInRoute
+  '/profile/subscription': typeof AuthenticatedProfileSubscriptionRoute
+  '/profile': typeof AuthenticatedProfileIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -65,12 +83,26 @@ export interface FileRoutesById {
   '/_authenticated/practice': typeof AuthenticatedPracticeRoute
   '/_unauthenticated/sign-in': typeof UnauthenticatedSignInRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/profile/subscription': typeof AuthenticatedProfileSubscriptionRoute
+  '/_authenticated/profile/': typeof AuthenticatedProfileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/learning' | '/practice' | '/sign-in'
+  fullPaths:
+    | '/'
+    | '/learning'
+    | '/practice'
+    | '/sign-in'
+    | '/profile/subscription'
+    | '/profile/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/learning' | '/practice' | '/sign-in'
+  to:
+    | '/'
+    | '/learning'
+    | '/practice'
+    | '/sign-in'
+    | '/profile/subscription'
+    | '/profile'
   id:
     | '__root__'
     | '/_authenticated'
@@ -79,6 +111,8 @@ export interface FileRouteTypes {
     | '/_authenticated/practice'
     | '/_unauthenticated/sign-in'
     | '/_authenticated/'
+    | '/_authenticated/profile/subscription'
+    | '/_authenticated/profile/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -130,6 +164,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthenticatedSignInRouteImport
       parentRoute: typeof UnauthenticatedRoute
     }
+    '/_authenticated/profile/': {
+      id: '/_authenticated/profile/'
+      path: '/profile'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof AuthenticatedProfileIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/profile/subscription': {
+      id: '/_authenticated/profile/subscription'
+      path: '/profile/subscription'
+      fullPath: '/profile/subscription'
+      preLoaderRoute: typeof AuthenticatedProfileSubscriptionRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
@@ -137,12 +185,16 @@ interface AuthenticatedRouteChildren {
   AuthenticatedLearningRoute: typeof AuthenticatedLearningRoute
   AuthenticatedPracticeRoute: typeof AuthenticatedPracticeRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedProfileSubscriptionRoute: typeof AuthenticatedProfileSubscriptionRoute
+  AuthenticatedProfileIndexRoute: typeof AuthenticatedProfileIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedLearningRoute: AuthenticatedLearningRoute,
   AuthenticatedPracticeRoute: AuthenticatedPracticeRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedProfileSubscriptionRoute: AuthenticatedProfileSubscriptionRoute,
+  AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

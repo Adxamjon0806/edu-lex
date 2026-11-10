@@ -36,7 +36,7 @@ export const NAVIGATION_ITEMS: Readonly<Record<UserRole, readonly NavigationItem
     { icon: House, key: 'dashboard', label: 'Главная', shortLabel: 'Главная' },
     { icon: BookOpen, key: 'learning', label: 'Обучение', shortLabel: 'Обучение', to: '/learning' },
     { icon: Target, key: 'practice', label: 'Практика', shortLabel: 'Практика', to: '/practice' },
-    { icon: UserRound, key: 'profile', label: 'Профиль', shortLabel: 'Профиль' },
+    { icon: UserRound, key: 'profile', label: 'Профиль', shortLabel: 'Профиль', to: '/profile' },
     { icon: Users, key: 'mentors', label: 'Менторы', shortLabel: 'Менторы' },
     { icon: Video, key: 'consultation', label: 'Консультация', shortLabel: 'Консульт.' },
   ],

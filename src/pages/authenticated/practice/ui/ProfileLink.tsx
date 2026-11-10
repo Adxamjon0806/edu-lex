@@ -1,9 +1,9 @@
 import { Link } from '@tanstack/react-router'
 
-// «В профиль» после теста. Профиля пока нет: ссылка ведёт туда же, куда пункт «Профиль» в навигации.
+// «В профиль» после теста.
 export function ProfileLink({ className }: Readonly<{ className: string }>) {
   return (
-    <Link className={className} hash="profile" to="/">
+    <Link className={className} to="/profile">
       В профиль
     </Link>
   )
