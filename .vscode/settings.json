@@ -29,6 +29,5 @@
     "**/generatedRouteTree.ts": true
   },
   // Подсказываем классы Tailwind внутри classNames(), как tailwindFunctions в prettier.config.js сортирует их там.
-  "tailwindCSS.classFunctions": ["classNames"],
-  "python.terminal.useEnvFile": true
+  "tailwindCSS.classFunctions": ["classNames"]
 }

@@ -1,9 +1,8 @@
 import { useId } from 'react'
 
-import { classNames } from '~/shared/lib'
 import { Button, OtpInput } from '~/shared/ui'
 
-import { AUTH_METHOD_TEXTS, DISABLED_PRIMARY_CLASS_NAME, type AuthMethod } from '../config/onboarding'
+import { AUTH_METHOD_TEXTS, type AuthMethod } from '../config/onboarding'
 import { maskIdentifier } from '../lib/maskIdentifier'
 import { StepActions } from './StepActions'
 import { StepHeading } from './StepHeading'
@@ -85,12 +84,7 @@ export function OtpStep({
       <StepActions
         onBack={onBack}
         renderPrimary={(className) => (
-          <Button
-            className={classNames(className, DISABLED_PRIMARY_CLASS_NAME)}
-            disabled={!isComplete}
-            size="lg"
-            type="submit"
-          >
+          <Button className={className} disabled={!isComplete} size="lg" type="submit">
             Подтвердить
           </Button>
         )}

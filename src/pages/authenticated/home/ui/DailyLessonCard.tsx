@@ -42,12 +42,12 @@ export function DailyLessonCard() {
           </li>
         ))}
       </ul>
-      <Link className={buttonVariants({ className: 'py-3.25 md:hidden', fullWidth: true })} to="/">
+      <Link className={buttonVariants({ className: 'py-3.25 md:hidden', fullWidth: true })} to="/learning">
         Начать разбор
       </Link>
       <Link
         className={buttonVariants({ className: 'self-start px-5.5 max-md:hidden lg:mt-1', variant: 'secondary' })}
-        to="/"
+        to="/learning"
       >
         Начать разбор
       </Link>

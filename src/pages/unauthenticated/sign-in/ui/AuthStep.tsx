@@ -8,7 +8,6 @@ import {
   AUTH_METHOD_TEXTS,
   AUTH_METHODS,
   AUTH_MODE_TEXTS,
-  DISABLED_PRIMARY_CLASS_NAME,
   ROLES,
   type AuthMethod,
   type AuthMode,
@@ -110,12 +109,7 @@ export function AuthStep({
         hideBackOnMobile
         onBack={onBack}
         renderPrimary={(className) => (
-          <Button
-            className={classNames(className, DISABLED_PRIMARY_CLASS_NAME)}
-            disabled={!canSubmit}
-            size="lg"
-            type="submit"
-          >
+          <Button className={className} disabled={!canSubmit} size="lg" type="submit">
             {modeTexts.submit}
           </Button>
         )}

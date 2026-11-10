@@ -40,7 +40,7 @@ export function ActiveCourseCard({
           <span className="font-serif text-22 leading-none font-semibold text-gold-400 md:hidden">{percent}</span>
         </div>
         <div className="flex items-end justify-between gap-4">
-          <h2 className="lg:text-36 font-serif text-23 leading-tight font-semibold md:text-30" id="active-course-title">
+          <h2 className="font-serif text-23 leading-tight font-semibold md:text-30 lg:text-36" id="active-course-title">
             {title}
           </h2>
           <span className="hidden font-serif text-40 leading-none font-semibold text-gold-400 md:inline lg:hidden">
@@ -73,7 +73,7 @@ export function ActiveCourseCard({
               'max-md:absolute max-md:inset-0 max-md:rounded-18 max-md:bg-transparent max-md:text-transparent max-md:hover:bg-white/5',
             ),
           })}
-          to="/"
+          to="/learning"
         >
           <Play aria-hidden className="max-lg:hidden" />
           Продолжить

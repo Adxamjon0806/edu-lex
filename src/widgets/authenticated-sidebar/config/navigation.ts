@@ -1,3 +1,4 @@
+import type { LinkProps } from '@tanstack/react-router'
 import {
   BadgeCheck,
   BookOpen,
@@ -17,11 +18,13 @@ import type { UserRole } from '~/entities/session'
 
 export type NavigationItem = Readonly<{
   icon: LucideIcon
-  /** Уникальный ключ пункта. Пока страниц нет, он же — hash ссылки (см. AuthenticatedSidebar). */
+  /** Уникальный ключ пункта. Пока у пункта нет своей страницы, он же — hash ссылки на главную (см. AuthenticatedSidebar). */
   key: string
   label: string
   /** Подпись для узкой колонки и нижней панели, где полная не помещается. */
   shortLabel: string
+  /** Страница пункта. Без неё пункт ведёт на главную. */
+  to?: LinkProps['to']
 }>
 
 /*
@@ -31,8 +34,8 @@ export type NavigationItem = Readonly<{
 export const NAVIGATION_ITEMS: Readonly<Record<UserRole, readonly NavigationItem[]>> = {
   student: [
     { icon: House, key: 'dashboard', label: 'Главная', shortLabel: 'Главная' },
-    { icon: BookOpen, key: 'learning', label: 'Обучение', shortLabel: 'Обучение' },
-    { icon: Target, key: 'practice', label: 'Практика', shortLabel: 'Практика' },
+    { icon: BookOpen, key: 'learning', label: 'Обучение', shortLabel: 'Обучение', to: '/learning' },
+    { icon: Target, key: 'practice', label: 'Практика', shortLabel: 'Практика', to: '/practice' },
     { icon: UserRound, key: 'profile', label: 'Профиль', shortLabel: 'Профиль' },
     { icon: Users, key: 'mentors', label: 'Менторы', shortLabel: 'Менторы' },
     { icon: Video, key: 'consultation', label: 'Консультация', shortLabel: 'Консульт.' },

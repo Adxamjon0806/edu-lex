@@ -117,9 +117,6 @@ export const TEACHER_FIELDS: readonly Readonly<{ label: string; value: string }>
   { label: 'Темы консультаций', value: 'Contract Law, IELTS Academic' },
 ]
 
-// Неактивная основная кнопка на этой странице — серая заливка из макета, а не общий вид disabled у Button.
-export const DISABLED_PRIMARY_CLASS_NAME = 'disabled:bg-[#C9C3B5] disabled:opacity-100'
-
 // Значения по умолчанию из состояния прототипа.
 export const DEFAULTS = {
   directions: ['law'],

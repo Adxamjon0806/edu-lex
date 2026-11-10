@@ -38,8 +38,12 @@ export function AuthenticatedSidebar() {
         <ul className="flex justify-around px-1.5 pt-2.5 pb-5.5 md:flex-col md:gap-2 md:p-0 lg:gap-1.5">
           {NAVIGATION_ITEMS[role].map((item, index) => (
             <li key={item.key}>
-              {/* Первый пункт — сама главная, остальные пока ведут туда же с hash (см. NavigationLink). */}
-              <NavigationLink hash={index === 0 ? undefined : item.key} item={item} smallRailLabels={isTeacher} />
+              {/* Первый пункт — сама главная. Пункты без своей страницы пока ведут туда же с hash (см. NavigationLink). */}
+              <NavigationLink
+                hash={item.to !== undefined || index === 0 ? undefined : item.key}
+                item={item}
+                smallRailLabels={isTeacher}
+              />
             </li>
           ))}
         </ul>

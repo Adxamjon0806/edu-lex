@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './../routes/__root'
 import { Route as AuthenticatedRouteImport } from './../routes/_authenticated'
 import { Route as UnauthenticatedRouteImport } from './../routes/_unauthenticated'
 import { Route as AuthenticatedIndexRouteImport } from './../routes/_authenticated/index'
+import { Route as AuthenticatedLearningRouteImport } from './../routes/_authenticated/learning'
+import { Route as AuthenticatedPracticeRouteImport } from './../routes/_authenticated/practice'
 import { Route as UnauthenticatedSignInRouteImport } from './../routes/_unauthenticated/sign-in'
 
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
@@ -27,6 +29,16 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedLearningRoute = AuthenticatedLearningRouteImport.update({
+  id: '/learning',
+  path: '/learning',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedPracticeRoute = AuthenticatedPracticeRouteImport.update({
+  id: '/practice',
+  path: '/practice',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const UnauthenticatedSignInRoute = UnauthenticatedSignInRouteImport.update({
   id: '/sign-in',
   path: '/sign-in',
@@ -35,28 +47,36 @@ const UnauthenticatedSignInRoute = UnauthenticatedSignInRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
+  '/learning': typeof AuthenticatedLearningRoute
+  '/practice': typeof AuthenticatedPracticeRoute
   '/sign-in': typeof UnauthenticatedSignInRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
+  '/learning': typeof AuthenticatedLearningRoute
+  '/practice': typeof AuthenticatedPracticeRoute
   '/sign-in': typeof UnauthenticatedSignInRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_unauthenticated': typeof UnauthenticatedRouteWithChildren
+  '/_authenticated/learning': typeof AuthenticatedLearningRoute
+  '/_authenticated/practice': typeof AuthenticatedPracticeRoute
   '/_unauthenticated/sign-in': typeof UnauthenticatedSignInRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sign-in'
+  fullPaths: '/' | '/learning' | '/practice' | '/sign-in'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign-in'
+  to: '/' | '/learning' | '/practice' | '/sign-in'
   id:
     | '__root__'
     | '/_authenticated'
     | '/_unauthenticated'
+    | '/_authenticated/learning'
+    | '/_authenticated/practice'
     | '/_unauthenticated/sign-in'
     | '/_authenticated/'
   fileRoutesById: FileRoutesById
@@ -89,6 +109,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/learning': {
+      id: '/_authenticated/learning'
+      path: '/learning'
+      fullPath: '/learning'
+      preLoaderRoute: typeof AuthenticatedLearningRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/practice': {
+      id: '/_authenticated/practice'
+      path: '/practice'
+      fullPath: '/practice'
+      preLoaderRoute: typeof AuthenticatedPracticeRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_unauthenticated/sign-in': {
       id: '/_unauthenticated/sign-in'
       path: '/sign-in'
@@ -100,10 +134,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteChildren {
+  AuthenticatedLearningRoute: typeof AuthenticatedLearningRoute
+  AuthenticatedPracticeRoute: typeof AuthenticatedPracticeRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedLearningRoute: AuthenticatedLearningRoute,
+  AuthenticatedPracticeRoute: AuthenticatedPracticeRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 

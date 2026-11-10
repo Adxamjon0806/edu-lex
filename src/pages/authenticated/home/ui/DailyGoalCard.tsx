@@ -32,7 +32,7 @@ export function DailyGoalCard({ className }: Readonly<{ className?: string }>) {
       </p>
       <Link
         className="mt-auto flex w-fit items-center gap-1.5 text-14 font-bold text-body transition-colors hover:text-success focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald [&_svg]:size-4"
-        to="/"
+        to="/practice"
       >
         Быстрая практика
         <ArrowRight aria-hidden />

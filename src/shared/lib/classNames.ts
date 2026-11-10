@@ -7,10 +7,12 @@ import { extendTailwindMerge } from 'tailwind-merge'
  * классами. Добавляя или удаляя токен в index.css, обнови список здесь.
  */
 const twMerge = extendTailwindMerge({
-  // Шкала drop-shadow в index.css не сброшена, поэтому glow добавляется к стандартным значениям.
+  // Шкалы drop-shadow, ease и perspective в index.css не сброшены, поэтому токены добавляются к стандартным значениям.
   extend: {
     theme: {
       'drop-shadow': ['glow'],
+      ease: ['flip'],
+      perspective: ['card'],
     },
   },
   override: {
@@ -33,12 +35,15 @@ const twMerge = extendTailwindMerge({
         'gold-400',
         'gold-700',
         'heading',
+        'hint',
+        'inactive',
         'inherit',
         'line',
         'line-accent',
         'line-strong',
         'muted',
         'navy',
+        'navy-50',
         'navy-100',
         'navy-200',
         'navy-300',
@@ -66,7 +71,7 @@ const twMerge = extendTailwindMerge({
       ],
       leading: ['loose', 'none', 'normal', 'relaxed', 'snug', 'tight'],
       radius: ['3', '4', '5', '6', '8', '9', '10', '12', '14', '16', '18', '20', '22', '24', '28', '32'],
-      shadow: ['glow', 'glow-lg', 'lg', 'md', 'raised', 'sheet', 'sm', 'xl', 'xs'],
+      shadow: ['2xl', 'glow', 'glow-lg', 'lg', 'md', 'raised', 'sheet', 'sm', 'xl', 'xs'],
       text: [
         '10',
         '11',
@@ -88,12 +93,17 @@ const twMerge = extendTailwindMerge({
         '30',
         '32',
         '34',
+        '36',
         '38',
         '40',
+        '42',
         '44',
         '48',
         '52',
         '56',
+        '60',
+        '64',
+        '68',
       ],
       tracking: ['wide', 'wider', 'widest'],
     },

@@ -5,7 +5,7 @@ import { classNames } from '~/shared/lib'
 import type { NavigationItem } from '../config/navigation'
 
 type NavigationLinkProps = Readonly<{
-  /** Пока страниц нет, все пункты ведут на главную и различаются hash: так подсвечивается выбранный пункт. */
+  /** Пункты без своей страницы ведут на главную и различаются hash: так подсвечивается выбранный пункт. */
   hash?: string
   item: NavigationItem
   /** Мелкие подписи в узкой колонке (10px вместо 11px), как в навигации преподавателя в макете. */
@@ -23,12 +23,12 @@ type NavigationLinkProps = Readonly<{
  */
 export function NavigationLink({
   hash,
-  item: { icon: Icon, label, shortLabel },
+  item: { icon: Icon, label, shortLabel, to = '/' },
   smallRailLabels = false,
 }: NavigationLinkProps) {
   return (
     <Link
-      activeOptions={{ includeHash: true }}
+      activeOptions={{ exact: true, includeHash: true }}
       className={classNames(
         'flex min-w-15 flex-col items-center gap-1 py-1.5 text-10 font-semibold text-navy-200 transition-colors',
         'hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald',
@@ -38,7 +38,7 @@ export function NavigationLink({
         'lg:w-auto lg:flex-row lg:gap-3 lg:rounded-10 lg:px-3.5 lg:py-3 lg:text-15',
       )}
       hash={hash}
-      to="/"
+      to={to}
     >
       <Icon aria-hidden className="size-5.25 shrink-0 lg:size-4.75" />
       <span className="lg:hidden">{shortLabel}</span>

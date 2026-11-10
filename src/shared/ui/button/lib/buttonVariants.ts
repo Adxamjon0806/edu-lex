@@ -10,6 +10,7 @@ import { classNames } from '~/shared/lib'
  * - danger-outline — опасное действие в спокойном виде (удалить, отказаться);
  * - on-navy — кнопка на тёмно-синем фоне.
  * Hover и active в макете не нарисованы: выведены из палитры (на тон темнее или приглушённый фон).
+ * Недоступная primary в макете серая (inactive) без прозрачности; во время загрузки (aria-busy) она остаётся emerald.
  */
 const variantClasses = {
   danger: 'bg-red font-bold text-white hover:bg-red-700',
@@ -17,7 +18,10 @@ const variantClasses = {
   ghost: 'font-semibold text-muted hover:bg-surface-muted hover:text-heading',
   'on-navy': 'border-navy-400 font-bold text-white hover:bg-navy-800',
   outline: 'border-line-strong font-semibold text-body hover:bg-surface-muted',
-  primary: 'bg-emerald font-bold text-white hover:bg-emerald-700',
+  primary: classNames(
+    'bg-emerald font-bold text-white hover:bg-emerald-700',
+    'disabled:not-aria-busy:bg-inactive disabled:not-aria-busy:opacity-100 aria-disabled:bg-inactive aria-disabled:opacity-100',
+  ),
   secondary: 'border-line-accent font-bold text-heading hover:bg-surface-muted',
 } as const
 
