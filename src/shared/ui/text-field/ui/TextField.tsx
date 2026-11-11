@@ -4,10 +4,12 @@ import { Eye, EyeOff, type LucideIcon } from 'lucide-react'
 
 import { classNames } from '~/shared/lib'
 
-// Размеры из макета: md — поля анкеты (радиус 10, текст 15px), lg — поля входа (радиус 12, текст 16px).
+// Размеры из макета: sm — поиск (радиус 12, текст 14px), md — поля анкеты (радиус 10, текст 15px),
+// lg — поля входа (радиус 12, текст 16px).
 const sizeClasses = {
   lg: { box: 'gap-2.5 rounded-12 px-4', input: 'py-3.75 text-16' },
   md: { box: 'gap-2.5 rounded-10 px-4', input: 'py-3.25 text-14 md:py-3.5 md:text-15' },
+  sm: { box: 'gap-2.5 rounded-12 px-3.5 md:px-4', input: 'py-3 text-14' },
 } as const
 
 type TextFieldProps = Omit<ComponentProps<'input'>, 'className' | 'id' | 'size' | 'type'> &
@@ -22,9 +24,13 @@ type TextFieldProps = Omit<ComponentProps<'input'>, 'className' | 'id' | 'size' 
     label: string
     /** Действие справа от подписи, например ссылка «Забыли пароль?». */
     labelAction?: ReactNode
+    /** Подпись только для скринридера: в макете у поля поиска её не видно. */
+    labelHidden?: boolean
     size?: keyof typeof sizeClasses
+    /** Элемент справа внутри поля, например кнопка фильтров у поиска. */
+    trailing?: ReactNode
     /** password добавляет кнопку «показать пароль». */
-    type?: 'email' | 'password' | 'tel' | 'text'
+    type?: 'email' | 'password' | 'search' | 'tel' | 'text'
   }>
 
 /*
@@ -39,7 +45,9 @@ export function TextField({
   icon: Icon,
   label,
   labelAction,
+  labelHidden = false,
   size = 'lg',
+  trailing,
   type = 'text',
   ...props
 }: TextFieldProps) {
@@ -53,7 +61,7 @@ export function TextField({
 
   return (
     <div className={classNames('flex flex-col gap-1.5 md:gap-2', className)}>
-      <div className="flex items-center justify-between gap-3">
+      <div className={classNames('flex items-center justify-between gap-3', labelHidden && 'sr-only')}>
         <label className="text-12 font-semibold text-muted md:text-13" htmlFor={id}>
           {label}
         </label>
@@ -66,7 +74,7 @@ export function TextField({
           error ? 'border-red-300' : 'border-line',
           disabled && 'bg-surface-muted opacity-60',
           sizeClasses[size].box,
-          isPassword && 'pr-1',
+          (isPassword || trailing !== undefined) && 'pr-1',
         )}
       >
         {Icon && <Icon aria-hidden className="size-4.5 shrink-0 text-muted" />}
@@ -96,6 +104,7 @@ export function TextField({
             {isPasswordVisible ? <EyeOff aria-hidden className="size-4.5" /> : <Eye aria-hidden className="size-4.5" />}
           </button>
         )}
+        {trailing}
       </div>
       {hasHint && (
         <div className="flex flex-col gap-1" id={hintId}>

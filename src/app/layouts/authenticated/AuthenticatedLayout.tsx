@@ -26,7 +26,8 @@ export function AuthenticatedLayout() {
     >
       <div
         className={classNames(
-          'sticky bottom-0 z-10 order-last md:top-0 md:order-first md:h-dvh',
+          // До md высота не меньше токена bottom-nav: на него опирается то, что прилипает к низу над панелью.
+          'sticky bottom-0 z-10 order-last bg-navy max-md:min-h-bottom-nav md:top-0 md:order-first md:h-dvh',
           focusMode && 'max-lg:hidden',
           darkPage && 'md:border-r md:border-navy-700',
         )}

@@ -17,7 +17,6 @@ export function ProfileHeader() {
       <Avatar
         className="size-13 font-serif text-20 font-semibold ring-2 ring-gold max-md:bg-navy-800 md:size-17 md:text-24 md:ring-offset-3 md:ring-offset-background lg:size-20 lg:text-28"
         initials={USER.initials}
-        name={USER.name}
       />
       <div className="flex min-w-0 flex-1 flex-col md:gap-1 lg:gap-1.5">
         <h1 className="font-serif text-21 font-semibold md:text-28 md:text-heading lg:text-32">{USER.name}</h1>

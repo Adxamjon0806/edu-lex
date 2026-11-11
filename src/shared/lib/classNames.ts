@@ -7,12 +7,13 @@ import { extendTailwindMerge } from 'tailwind-merge'
  * классами. Добавляя или удаляя токен в index.css, обнови список здесь.
  */
 const twMerge = extendTailwindMerge({
-  // Шкалы drop-shadow, ease и perspective в index.css не сброшены, поэтому токены добавляются к стандартным значениям.
+  // Шкалы drop-shadow, ease, perspective и spacing в index.css не сброшены, поэтому токены добавляются к стандартным значениям.
   extend: {
     theme: {
       'drop-shadow': ['glow'],
       ease: ['flip'],
       perspective: ['card'],
+      spacing: ['bottom-nav'],
     },
   },
   override: {

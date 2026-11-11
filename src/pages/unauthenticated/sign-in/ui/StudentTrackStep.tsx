@@ -5,7 +5,7 @@ import { Sparkles } from 'lucide-react'
 
 import { DIRECTIONS } from '~/entities/direction'
 
-import { buttonVariants, Chip, Radio, RadioGroup, SegmentedControl } from '~/shared/ui'
+import { buttonVariants, ChipGroup, Radio, RadioGroup, SegmentedControl } from '~/shared/ui'
 
 import { LEVELS, REGIONS, type Level } from '../config/onboarding'
 import { SectionLabel } from './SectionLabel'
@@ -76,20 +76,14 @@ export function StudentTrackStep<T>({
       </RadioGroup>
       <div className="flex flex-col gap-2 md:gap-3">
         <SectionLabel desktop="Целевой регион или вуз" id={regionLabelId} mobile="Регион" tablet="Регион или вуз" />
-        <div aria-labelledby={regionLabelId} className="flex flex-wrap gap-2 md:gap-2.5" role="group">
-          {REGIONS.map(({ label, value }) => (
-            <Chip
-              className="max-md:min-h-11 max-md:px-3.5 max-md:text-13"
-              key={value}
-              onClick={() => {
-                onRegionChange(value)
-              }}
-              selected={value === region}
-            >
-              {label}
-            </Chip>
-          ))}
-        </div>
+        <ChipGroup
+          aria-labelledby={regionLabelId}
+          className="md:gap-2.5"
+          itemClassName="max-md:min-h-11 max-md:px-3.5 max-md:text-13"
+          onChange={onRegionChange}
+          options={REGIONS}
+          value={region}
+        />
       </div>
       <div className="flex flex-col gap-2 md:gap-3">
         <SectionLabel

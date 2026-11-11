@@ -12,8 +12,11 @@ type AvatarProps = Readonly<{
   className?: string
   /** Инициалы, которые видно в кружке, например «АК». */
   initials: string
-  /** Полное имя для скринридера: инициалы сами по себе ничего не говорят. */
-  name: string
+  /**
+   * Полное имя для скринридера: инициалы сами по себе ничего не говорят. Если имя написано рядом
+   * (карточка ментора, шапка профиля), его не передают: аватар декоративный и имя не читается дважды.
+   */
+  name?: string
   size?: AvatarSize
 }>
 
@@ -21,13 +24,14 @@ type AvatarProps = Readonly<{
 export function Avatar({ className, initials, name, size = 44 }: AvatarProps) {
   return (
     <span
+      aria-hidden={name === undefined || undefined}
       aria-label={name}
       className={classNames(
         'inline-flex shrink-0 items-center justify-center rounded-full bg-navy font-bold text-gold-400',
         sizeClasses[size],
         className,
       )}
-      role="img"
+      role={name === undefined ? undefined : 'img'}
     >
       <span aria-hidden>{initials}</span>
     </span>

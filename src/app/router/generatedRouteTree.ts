@@ -15,6 +15,8 @@ import { Route as AuthenticatedIndexRouteImport } from './../routes/_authenticat
 import { Route as AuthenticatedLearningRouteImport } from './../routes/_authenticated/learning'
 import { Route as AuthenticatedPracticeRouteImport } from './../routes/_authenticated/practice'
 import { Route as UnauthenticatedSignInRouteImport } from './../routes/_unauthenticated/sign-in'
+import { Route as AuthenticatedMentorsIndexRouteImport } from './../routes/_authenticated/mentors/index'
+import { Route as AuthenticatedMentorsMentorIdRouteImport } from './../routes/_authenticated/mentors/$mentorId'
 import { Route as AuthenticatedProfileIndexRouteImport } from './../routes/_authenticated/profile/index'
 import { Route as AuthenticatedProfileSubscriptionRouteImport } from './../routes/_authenticated/profile/subscription'
 
@@ -46,6 +48,18 @@ const UnauthenticatedSignInRoute = UnauthenticatedSignInRouteImport.update({
   path: '/sign-in',
   getParentRoute: () => UnauthenticatedRoute,
 } as any)
+const AuthenticatedMentorsIndexRoute =
+  AuthenticatedMentorsIndexRouteImport.update({
+    id: '/mentors/',
+    path: '/mentors/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedMentorsMentorIdRoute =
+  AuthenticatedMentorsMentorIdRouteImport.update({
+    id: '/mentors/$mentorId',
+    path: '/mentors/$mentorId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedProfileIndexRoute =
   AuthenticatedProfileIndexRouteImport.update({
     id: '/profile/',
@@ -64,7 +78,9 @@ export interface FileRoutesByFullPath {
   '/learning': typeof AuthenticatedLearningRoute
   '/practice': typeof AuthenticatedPracticeRoute
   '/sign-in': typeof UnauthenticatedSignInRoute
+  '/mentors/$mentorId': typeof AuthenticatedMentorsMentorIdRoute
   '/profile/subscription': typeof AuthenticatedProfileSubscriptionRoute
+  '/mentors/': typeof AuthenticatedMentorsIndexRoute
   '/profile/': typeof AuthenticatedProfileIndexRoute
 }
 export interface FileRoutesByTo {
@@ -72,7 +88,9 @@ export interface FileRoutesByTo {
   '/learning': typeof AuthenticatedLearningRoute
   '/practice': typeof AuthenticatedPracticeRoute
   '/sign-in': typeof UnauthenticatedSignInRoute
+  '/mentors/$mentorId': typeof AuthenticatedMentorsMentorIdRoute
   '/profile/subscription': typeof AuthenticatedProfileSubscriptionRoute
+  '/mentors': typeof AuthenticatedMentorsIndexRoute
   '/profile': typeof AuthenticatedProfileIndexRoute
 }
 export interface FileRoutesById {
@@ -83,7 +101,9 @@ export interface FileRoutesById {
   '/_authenticated/practice': typeof AuthenticatedPracticeRoute
   '/_unauthenticated/sign-in': typeof UnauthenticatedSignInRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/mentors/$mentorId': typeof AuthenticatedMentorsMentorIdRoute
   '/_authenticated/profile/subscription': typeof AuthenticatedProfileSubscriptionRoute
+  '/_authenticated/mentors/': typeof AuthenticatedMentorsIndexRoute
   '/_authenticated/profile/': typeof AuthenticatedProfileIndexRoute
 }
 export interface FileRouteTypes {
@@ -93,7 +113,9 @@ export interface FileRouteTypes {
     | '/learning'
     | '/practice'
     | '/sign-in'
+    | '/mentors/$mentorId'
     | '/profile/subscription'
+    | '/mentors/'
     | '/profile/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -101,7 +123,9 @@ export interface FileRouteTypes {
     | '/learning'
     | '/practice'
     | '/sign-in'
+    | '/mentors/$mentorId'
     | '/profile/subscription'
+    | '/mentors'
     | '/profile'
   id:
     | '__root__'
@@ -111,7 +135,9 @@ export interface FileRouteTypes {
     | '/_authenticated/practice'
     | '/_unauthenticated/sign-in'
     | '/_authenticated/'
+    | '/_authenticated/mentors/$mentorId'
     | '/_authenticated/profile/subscription'
+    | '/_authenticated/mentors/'
     | '/_authenticated/profile/'
   fileRoutesById: FileRoutesById
 }
@@ -164,6 +190,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthenticatedSignInRouteImport
       parentRoute: typeof UnauthenticatedRoute
     }
+    '/_authenticated/mentors/': {
+      id: '/_authenticated/mentors/'
+      path: '/mentors'
+      fullPath: '/mentors/'
+      preLoaderRoute: typeof AuthenticatedMentorsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/mentors/$mentorId': {
+      id: '/_authenticated/mentors/$mentorId'
+      path: '/mentors/$mentorId'
+      fullPath: '/mentors/$mentorId'
+      preLoaderRoute: typeof AuthenticatedMentorsMentorIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/profile/': {
       id: '/_authenticated/profile/'
       path: '/profile'
@@ -185,7 +225,9 @@ interface AuthenticatedRouteChildren {
   AuthenticatedLearningRoute: typeof AuthenticatedLearningRoute
   AuthenticatedPracticeRoute: typeof AuthenticatedPracticeRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedMentorsMentorIdRoute: typeof AuthenticatedMentorsMentorIdRoute
   AuthenticatedProfileSubscriptionRoute: typeof AuthenticatedProfileSubscriptionRoute
+  AuthenticatedMentorsIndexRoute: typeof AuthenticatedMentorsIndexRoute
   AuthenticatedProfileIndexRoute: typeof AuthenticatedProfileIndexRoute
 }
 
@@ -193,7 +235,9 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedLearningRoute: AuthenticatedLearningRoute,
   AuthenticatedPracticeRoute: AuthenticatedPracticeRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedMentorsMentorIdRoute: AuthenticatedMentorsMentorIdRoute,
   AuthenticatedProfileSubscriptionRoute: AuthenticatedProfileSubscriptionRoute,
+  AuthenticatedMentorsIndexRoute: AuthenticatedMentorsIndexRoute,
   AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,
 }
 
