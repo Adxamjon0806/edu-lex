@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './../routes/__root'
 import { Route as AuthenticatedRouteImport } from './../routes/_authenticated'
 import { Route as UnauthenticatedRouteImport } from './../routes/_unauthenticated'
 import { Route as AuthenticatedIndexRouteImport } from './../routes/_authenticated/index'
+import { Route as AuthenticatedConsultationRouteImport } from './../routes/_authenticated/consultation'
 import { Route as AuthenticatedLearningRouteImport } from './../routes/_authenticated/learning'
 import { Route as AuthenticatedPracticeRouteImport } from './../routes/_authenticated/practice'
 import { Route as UnauthenticatedSignInRouteImport } from './../routes/_unauthenticated/sign-in'
@@ -33,6 +34,12 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedConsultationRoute =
+  AuthenticatedConsultationRouteImport.update({
+    id: '/consultation',
+    path: '/consultation',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedLearningRoute = AuthenticatedLearningRouteImport.update({
   id: '/learning',
   path: '/learning',
@@ -75,6 +82,7 @@ const AuthenticatedProfileSubscriptionRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
+  '/consultation': typeof AuthenticatedConsultationRoute
   '/learning': typeof AuthenticatedLearningRoute
   '/practice': typeof AuthenticatedPracticeRoute
   '/sign-in': typeof UnauthenticatedSignInRoute
@@ -85,6 +93,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
+  '/consultation': typeof AuthenticatedConsultationRoute
   '/learning': typeof AuthenticatedLearningRoute
   '/practice': typeof AuthenticatedPracticeRoute
   '/sign-in': typeof UnauthenticatedSignInRoute
@@ -97,6 +106,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_unauthenticated': typeof UnauthenticatedRouteWithChildren
+  '/_authenticated/consultation': typeof AuthenticatedConsultationRoute
   '/_authenticated/learning': typeof AuthenticatedLearningRoute
   '/_authenticated/practice': typeof AuthenticatedPracticeRoute
   '/_unauthenticated/sign-in': typeof UnauthenticatedSignInRoute
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/consultation'
     | '/learning'
     | '/practice'
     | '/sign-in'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/consultation'
     | '/learning'
     | '/practice'
     | '/sign-in'
@@ -131,6 +143,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_authenticated'
     | '/_unauthenticated'
+    | '/_authenticated/consultation'
     | '/_authenticated/learning'
     | '/_authenticated/practice'
     | '/_unauthenticated/sign-in'
@@ -167,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/consultation': {
+      id: '/_authenticated/consultation'
+      path: '/consultation'
+      fullPath: '/consultation'
+      preLoaderRoute: typeof AuthenticatedConsultationRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/learning': {
@@ -222,6 +242,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteChildren {
+  AuthenticatedConsultationRoute: typeof AuthenticatedConsultationRoute
   AuthenticatedLearningRoute: typeof AuthenticatedLearningRoute
   AuthenticatedPracticeRoute: typeof AuthenticatedPracticeRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
@@ -232,6 +253,7 @@ interface AuthenticatedRouteChildren {
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedConsultationRoute: AuthenticatedConsultationRoute,
   AuthenticatedLearningRoute: AuthenticatedLearningRoute,
   AuthenticatedPracticeRoute: AuthenticatedPracticeRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,

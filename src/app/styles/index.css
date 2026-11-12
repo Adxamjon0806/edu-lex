@@ -198,6 +198,38 @@
     --color-danger-subtle: #3a1f2a;
   }
 
+  /*
+   * Светлая зона внутри тёмной темы: элемент с data-theme="light" возвращает светлые значения токенов
+   * (например, «лист» демонстрации экрана в звонке — он светлый в любой теме). Значения повторяют @theme:
+   * меняя светлый токен выше, поменяй его и здесь.
+   */
+  [data-theme='light'] {
+    color-scheme: light;
+
+    --color-background: #faf7f0;
+    --color-surface: #ffffff;
+    --color-surface-muted: #efebe1;
+    --color-selected: #f1faf6;
+    --color-track: #e7e2d6;
+
+    --color-heading: #0c1834;
+    --color-body: #23272f;
+    --color-body-secondary: #4a4f58;
+    --color-muted: #6b7079;
+    --color-subtle: #6b6b6b;
+
+    --color-line: #e7e2d6;
+    --color-line-strong: #d9d3c5;
+    --color-line-accent: #0c1834;
+
+    --color-success: #0b7a53;
+    --color-success-subtle: #ddf3ea;
+    --color-premium: #8a6a1f;
+    --color-premium-subtle: #f5ecd3;
+    --color-danger: #b4443e;
+    --color-danger-subtle: #fbe6e4;
+  }
+
   html {
     /* В макете текст задан шорткатом font без высоты строки, то есть line-height: normal. */
     line-height: normal;

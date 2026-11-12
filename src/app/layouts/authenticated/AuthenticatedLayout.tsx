@@ -16,6 +16,16 @@ import { classNames } from '~/shared/lib'
 export function AuthenticatedLayout() {
   const focusMode = useMatches({ select: (matches) => matches.some((match) => match.staticData.focusMode) })
   const darkPage = useMatches({ select: (matches) => matches.some((match) => match.staticData.darkPage) })
+  const immersive = useMatches({ select: (matches) => matches.some((match) => match.staticData.immersive) })
+
+  // Экран на всю страницу (staticData.immersive, звонок): без навигации и отступов на всех ширинах.
+  if (immersive) {
+    return (
+      <main className="flex flex-1 flex-col">
+        <Outlet />
+      </main>
+    )
+  }
 
   return (
     <div
